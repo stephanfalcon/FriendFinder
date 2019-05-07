@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="info">
+            <h1>Survey Questions</h1>
+            <hr>
+            <h3><b>About you</h3><br>
+            <h4>Name</h4><br>
+            <input type="text" id="name" style="width:90%"><br>
+            <h4>Email</h4><br>
+            <input type="email" id="email" style="width:90%"><br>
+            <hr>
+        </div>
+        
+
+        
+        <div class="questions">
+            <div>
+                <ol>
+                    <li class = "question">the sky is blue</li>
+                    <select class="answer" id="A1">
+                            <option value="4">strongly agree</option>
+                            <option value="3">agree</option>
+                            <option value="2">disagree</option>
+                            <option value="1">stongly disagree</option>
+                    </select> 
+                    <li class="question">poop</li>
+                    <select class="answer" id="A2">
+                            <option value="4">strongly agree</option>
+                            <option value="3">agree</option>
+                            <option value="2">disagree</option>
+                            <option value="1">stongly disagree</option>
+                    </select> 
+                    <li class="question">poop</li>
+                    <select class="answer" id="A3">
+                            <option value="4">strongly agree</option>
+                            <option value="3">agree</option>
+                            <option value="2">disagree</option>
+                            <option value="1">stongly disagree</option>
+                    </select> 
+                    <li class="question">poop</li>
+                    <select class="answer" id="A4">
+                            <option value="4">strongly agree</option>
+                            <option value="3">agree</option>
+                            <option value="2">disagree</option>
+                            <option value="1">stongly disagree</option>
+                    </select> 
+                    <li class="question">poop</li>
+                    <select class="answer" id="A5">
+                            <option value="4">strongly agree</option>
+                            <option value="3">agree</option>
+                            <option value="2">disagree</option>
+                            <option value="1">stongly disagree</option>
+                    </select> 
+                    <li class="question">poop</li>
+                    <select class="answer" id="A6">
+                            <option value="4">strongly agree</option>
+                            <option value="3">agree</option>
+                            <option value="2">disagree</option>
+                            <option value="1">stongly disagree</option>
+                    </select> 
+                    <li class="question">poop</li>
+                    <select class="answer" id="A7">
+                            <option value="4">strongly agree</option>
+                            <option value="3">agree</option>
+                            <option value="2">disagree</option>
+                            <option value="1">stongly disagree</option>
+                    </select> 
+                    </ol>
+                    </div>
+            </div>
+            <hr>
+            <button id="submit" class="btn btn-info">submit</button>
+        </div>
+    </div>
+    <script>
+        
+        function profile(name,email,rating){
+        this.name = name,
+        this.email = email
+        this.rating = rating
+        
+        }
+
+        function score(answers){
+                let score = 0 
+                for (let i = 0; i < answers.length; i++) {
+                score += parseInt(answers[i]);
+                console.log(answers[i])
+                }
+                // console.log(`${this.name}'s score is ${score}`)
+                return score
+        }
+
+        $("#submit").on("click",function(){
+                let answers = []
+                let name
+                let email
+                
+                for(i = 0; i < 7;i++){
+                        answers.push($(`#A${i+1}`).val())
+                }
+                let rating = score(answers)
+                name = $("#name").val()
+                email = $("#email").val()
+
+                
+                
+                let person = new profile(name,email,rating)
+                
+
+                $.post("/survey.html", person)
+                        .then(function(res){
+                                console.log(res)
+                        })
+
+        })      
+
+    </script>
+    <script src="../data/friends.js"></script>
+</body>
+</html>
